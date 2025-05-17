@@ -1,0 +1,168 @@
+.questionWindow {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: opacity 0.2s;
+  opacity: 0;
+  pointer-events: none;
+
+  &.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .content {
+    padding: 20px;
+    border-radius: 12px;
+    //height: 25%;
+    width: 400px;
+    position: relative; // Для позиционирования кнопки внутри
+
+    &.light {
+      background-color: white;
+    }
+
+    &.dark {
+      background-color: #1f2937;
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: inherit;
+      text-align: center;
+
+      &.dark {
+        color: white;
+      }
+
+      &.light {
+        color: black;
+      }
+    }
+
+    .closeButton {
+      position: absolute; // Абсолютное позиционирование
+      top: 10px;
+      right: 10px;
+      height: 40px;
+      width: 40px;
+      color: #60a5fa;
+      cursor: pointer; // Курсор-указатель при наведении
+      transition: transform 0.2s;
+      z-index: 10;
+
+      &:hover {
+        transform: scale(1.1); // Эффект при наведении
+      }
+    }
+
+    .inputFields {
+      width: 100%;
+
+      .inputField {
+        margin-top: 1rem;
+        transition: all 0.3s ease;
+
+        &,
+        &.ant-input,
+        &.ant-input-textarea {
+          width: 100%;
+          border-radius: 6px;
+
+          &:hover {
+            border-color: #60a5fa;
+          }
+
+          &:focus {
+            box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+          }
+        }
+
+        // Светлая тема
+        &.light {
+          &,
+          &.ant-input,
+          &.ant-input-textarea {
+            background: #ffffff;
+            color: #1f1f1f;
+            border-color: #d9d9d9;
+
+            &::placeholder {
+              color: rgba(0, 0, 0, 0.45);
+            }
+
+            .ant-input-prefix {
+              color: rgba(0, 0, 0, 0.25);
+            }
+          }
+
+          &.ant-input-textarea textarea::placeholder {
+            color: rgba(0, 0, 0, 0.45) !important;
+          }
+        }
+
+        // Темная тема
+        &.dark {
+          &,
+          &.ant-input,
+          &.ant-input-textarea {
+            background: #2d3748;
+            color: #f0f0f0;
+            border-color: #434343;
+
+            &::placeholder {
+              color: rgba(255, 255, 255, 0.65) !important;
+            }
+
+            .ant-input-prefix {
+              color: rgba(255, 255, 255, 0.25);
+            }
+          }
+
+          &.ant-input-textarea textarea::placeholder {
+            color: rgba(255, 255, 255, 0.65) !important;
+          }
+        }
+      }
+
+      .sendQuestion {
+        margin-top: 1.5rem;
+        display: flex;
+        justify-self: center;
+
+        background: #60a5fa;
+        color: #fff;
+        border: none;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        font-size: 1rem;
+        outline: none;
+        transition: background 0.3s;
+
+        &.dark {
+          background-color: #60a5fa;
+        }
+
+        &.light {
+          background-color: #4684f0;
+        }
+
+        &:hover {
+          background: #2e67c3;
+        }
+      }
+    }
+  }
+}

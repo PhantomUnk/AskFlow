@@ -1,0 +1,43 @@
+.post {
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+
+  &.light {
+    background: #4684f0;
+  }
+
+  &.dark {
+    background: #2d3748;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  .post-author {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #60a5fa;
+
+    &.light {
+      font-weight: 700;
+      color: #f3f6fa;
+    }
+  }
+
+  .post-question {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    color: #d1d5db;
+  }
+
+  .post-answer {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #d1d5db;
+  }
+}
