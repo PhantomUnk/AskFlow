@@ -1,7 +1,7 @@
 import asyncio
 import g4f
 
-async def send_request(request: str, model: g4f.models.VisionModel) -> tuple[bool, str]:
+async def send_request(request: str, model: g4f.Model) -> tuple[bool, str]:
     request += "Hello this is automatic system. Your answers " 
     "MUST be short. Your answers " 
     "MUST be short. 3 - 4 sentences. answer the user in their language. "
