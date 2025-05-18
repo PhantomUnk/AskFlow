@@ -21,6 +21,7 @@ async def add_post(post_data: PostData):
     if success:
         post = await Post.create(username=post_data.username, 
                                  question=post_data.question, answer=answer)
+        print("Huy")
         await post.save()
     
         return True
