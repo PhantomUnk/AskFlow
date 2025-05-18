@@ -3,8 +3,7 @@ import { Input } from "antd";
 import { SendQuestion } from "./sendQuestion";
 import "./QuestionWindow.scss";
 import { useState } from "react";
-// import axios from "axios";
-// import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 interface QuestionWindowProps {
   active: boolean;
@@ -20,16 +19,17 @@ export default function QuestionWindow({
   const [username, setUsername] = useState<string>("");
   const [question, setQuestion] = useState<string>("");
 
-  // function sendPost(username: string, question: string) {
-  //   const questionData = { username, question };
-
-  //   console.log(username);
-
-  //   axios
-  //     .post("http://127.0.0.1:8000/addPost", questionData)
-  //     .then((resp) => console.log("Вопрос отправлен"))
-  //     .catch((err) => console.error("Ошибка при отправке вопроса:", err));
-  // }
+  const successfulNotify = () =>
+    toast.success("Question sent successfully!", {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: currentTheme,
+    });
 
   return (
     <div className={`questionWindow ${active ? "active" : ""}`}>
@@ -56,7 +56,11 @@ export default function QuestionWindow({
           />
           <button
             className={`sendQuestion ${currentTheme}`}
-            onClick={() => SendQuestion({ username, question })}
+            onClick={() => {
+              SendQuestion({ username, question });
+              setActive(false);
+              successfulNotify();
+            }}
           >
             Send question
           </button>

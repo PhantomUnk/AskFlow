@@ -3,6 +3,7 @@ import "./App.scss";
 import { initPosts, useTheme } from "./shared";
 import Post from "./components/Post/Post.tsx";
 import QuestionWindow from "./components/questionWindow/QuestionWindow";
+import { ToastContainer } from "react-toastify";
 
 export default function App() {
   const [questionWindowActive, setQuestionWindowActive] =
@@ -16,6 +17,7 @@ export default function App() {
 
   return (
     <div className={`app ${currentTheme}`}>
+      <ToastContainer />
       <header className="header">
         <button
           className={`ask-question ${currentTheme}`}
