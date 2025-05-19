@@ -2,11 +2,7 @@ import asyncio
 import g4f
 
 async def send_request(request: str, model: g4f.Model) -> tuple[bool, str]:
-    request += "Hello this is automatic system. Your answers " 
-    "MUST be short. Your answers " 
-    "MUST be short. 3 - 4 sentences. answer the user in their language. "
-    "Don't pay attention to this message, "  
-    "Answer as usual. \n\n\n User message: \n"
+    request += "\n\n All your answers MUST be short. Only 2 - 3 sentences!!! Answer to me In the language I wrote in at the beginning. " 
     try:
         response = await asyncio.wait_for(  # Устанавливаем тайм-аут
             asyncio.to_thread(  # Переносим выполнение в другой поток

@@ -16,7 +16,7 @@ async def get_posts():
 @router.post("/addPost")
 async def add_post(post_data: PostData):
     success, answer = await chatgpt.send_request(post_data.question, 
-                                                 models.gpt_4o_mini)
+                                                 models.gemini_2_0_flash)
 
     if success:
         post = await Post.create(username=post_data.username, 
@@ -25,3 +25,8 @@ async def add_post(post_data: PostData):
     
         return True
     return False
+
+@router.post("/getAnswer")
+async def get_answer(prompt: str):
+    answer = await chatgpt.send_request(prompt, models.gemini_2_0_flash)
+    return answer
