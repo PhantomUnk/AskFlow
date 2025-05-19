@@ -20,16 +20,24 @@ export default function QuestionWindow({
   const [question, setQuestion] = useState<string>("");
 
   const successfulNotify = () =>
-    toast.success("Question sent successfully!", {
-      position: "bottom-right",
-      autoClose: 2000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: currentTheme,
-    });
+    toast.success(
+      <div>
+        <div>Question sent successfully!</div>
+        <div style={{ fontSize: "0.9em", opacity: 0.8 }}>
+          Your post will appear soon
+        </div>
+      </div>,
+      {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: currentTheme,
+      }
+    );
 
   return (
     <div className={`questionWindow ${active ? "active" : ""}`}>

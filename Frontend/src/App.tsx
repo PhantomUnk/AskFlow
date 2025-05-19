@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.scss";
-import { initPosts, useTheme } from "./shared";
-import Post from "./components/Post/Post.tsx";
+import { useTheme } from "./shared";
+import PostPage from "./components/PostPage/PostPage.tsx";
 import QuestionWindow from "./components/questionWindow/QuestionWindow";
 import { ToastContainer } from "react-toastify";
 
@@ -9,11 +9,7 @@ export default function App() {
   const [questionWindowActive, setQuestionWindowActive] =
     useState<boolean>(false);
 
-  const posts = initPosts();
-
   const { isDark, toggleTheme, currentTheme } = useTheme();
-
-  console.log(posts);
 
   return (
     <div className={`app ${currentTheme}`}>
@@ -33,11 +29,8 @@ export default function App() {
           {isDark ? "☀️" : "🌙"}
         </button>
       </header>
-      <main className="posts">
-        {posts.map((post) => (
-          <Post key={post.id} {...post} currentTheme={currentTheme} />
-        ))}
-      </main>
+
+      <PostPage />
 
       <QuestionWindow
         active={questionWindowActive}

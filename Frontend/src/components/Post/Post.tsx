@@ -1,5 +1,5 @@
 import "./Post.scss";
-// import { PostProps } from "../../shared";
+import { useTheme } from "../../shared";
 
 interface PostProps {
   id: number;
@@ -9,12 +9,8 @@ interface PostProps {
   currentTheme: string;
 }
 
-export default function Post({
-  username,
-  question,
-  answer,
-  currentTheme,
-}: PostProps) {
+export default function Post({ username, question, answer }: PostProps) {
+  const { currentTheme } = useTheme();
   return (
     <article className={`post ${currentTheme}`}>
       <h2 className={`post-author ${currentTheme}`}>{username}</h2>
