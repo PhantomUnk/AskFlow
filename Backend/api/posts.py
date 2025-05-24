@@ -18,7 +18,6 @@ async def add_post(post_data: PostData):
     success, answer = await chatgpt.send_request(post_data.question, 
                                                  models.gpt_4o_mini)
     
-
     if success:
         post = await Post.create(username=post_data.username, 
                                  question=post_data.question, answer=answer)
