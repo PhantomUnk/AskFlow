@@ -1,4 +1,4 @@
-import {create} from "zustand";
+import { create } from "zustand";
 import axios from "axios";
 import { PostInterface } from "./interface's";
 
@@ -11,19 +11,18 @@ interface PostState {
 export const usePostStore = create<PostState>((set, get) => ({
   posts: [],
 
-  fetchPosts: () => {
-    axios
+  fetchPosts: async () => {
+    await axios
       .get<PostInterface[]>("http://127.0.0.1:8000/getPosts")
       .then((resp) => set({ posts: resp.data }))
       .catch((err) => console.error(err));
   },
 
-  sendQuestion: (username: string, question: string) => {
-    axios
+  sendQuestion: async (username: string, question: string) => {
+    await axios
       .post("http://127.0.0.1:8000/addPost", { username, question })
       .then(() => {
-        console.log("Вопрос успешно отправлен");
-        get().fetchPosts(); // обновляем посты после отправки
+        get().fetchPosts();
       })
       .catch((error) => {
         console.error("Ошибка при отправке вопроса:", error);
