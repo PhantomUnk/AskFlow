@@ -1,10 +1,15 @@
+import { useEffect } from "react";
 import Post from "../Post/Post.tsx";
-import { initPosts, useTheme } from "../../shared";
+import { useTheme } from "../../shared";
+import { usePostStore } from "../../shared/usePostStore";
 
 export default function PostPage() {
-  const posts = initPosts();
-
+  const { posts, fetchPosts } = usePostStore();
   const { currentTheme } = useTheme();
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
   return (
     <main className="posts">

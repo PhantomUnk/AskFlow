@@ -1,9 +1,10 @@
 import { IoMdCloseCircle } from "react-icons/io";
 import { Input } from "antd";
-import { SendQuestion } from "./sendQuestion";
 import "./QuestionWindow.scss";
 import { useState } from "react";
 import { toast } from "react-toastify";
+
+import { usePostStore } from "../../shared/usePostStore";
 
 interface QuestionWindowProps {
   active: boolean;
@@ -18,6 +19,8 @@ export default function QuestionWindow({
 }: QuestionWindowProps) {
   const [username, setUsername] = useState<string>("");
   const [question, setQuestion] = useState<string>("");
+
+  const sendQuestion = usePostStore((state) => state.sendQuestion);
 
   const successfulNotify = () =>
     toast.success(
@@ -65,7 +68,7 @@ export default function QuestionWindow({
           <button
             className={`sendQuestion ${currentTheme}`}
             onClick={() => {
-              SendQuestion({ username, question });
+              sendQuestion(username, question);
               setActive(false);
               successfulNotify();
             }}
