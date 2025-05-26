@@ -174,3 +174,5 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+services/__pycache__/chatgpt.cpython-312.pyc
+Database/

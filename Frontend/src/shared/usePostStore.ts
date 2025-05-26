@@ -22,7 +22,7 @@ export const usePostStore = create<PostState>((set, get) => ({
     await axios
       .post("http://127.0.0.1:8000/addPost", { username, question })
       .then(() => {
-        get().fetchPosts();
+        get().fetchPosts(); // обращаемся через get
       })
       .catch((error) => {
         console.error("Ошибка при отправке вопроса:", error);
