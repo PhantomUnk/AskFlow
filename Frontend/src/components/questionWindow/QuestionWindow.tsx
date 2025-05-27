@@ -63,6 +63,7 @@ export default function QuestionWindow({
             size="large"
             placeholder="Your Question"
             autoSize={{ minRows: 1, maxRows: 7 }}
+            value={question}
             onChange={(e) => setQuestion(e.target.value)}
           />
           <button
@@ -71,6 +72,7 @@ export default function QuestionWindow({
               sendQuestion(username, question);
               setActive(false);
               successfulNotify();
+              setQuestion("");
             }}
           >
             Send question
