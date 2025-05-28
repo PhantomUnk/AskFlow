@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import "./PostPage.scss";
 import Post from "../Post/Post.tsx";
 import { useTheme } from "../../shared";
 import { usePostStore } from "../../shared/usePostStore";

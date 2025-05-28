@@ -1,0 +1,18 @@
+.theme-toggle {
+  //position: fixed;
+  top: 1rem;
+  right: 1.5rem;
+  padding: 0.5rem;
+  background: #4b5563;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  outline: none;
+  font-size: 1.5rem;
+  transition: background 0.3s;
+
+  &:hover {
+    background: #6b7280;
+  }
+}
