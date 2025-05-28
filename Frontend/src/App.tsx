@@ -3,7 +3,7 @@ import "./App.scss";
 import { useTheme } from "./shared";
 import Header from "./components/Header/Header.tsx";
 import PostPage from "./components/PostPage/PostPage.tsx";
-import QuestionWindow from "./components/QuestionWindow/QuestionWindow.tsx";
+import QuestionWindow from "./components/questionWindow/QuestionWindow.tsx";
 import { ToastContainer } from "react-toastify";
 
 export default function App() {
