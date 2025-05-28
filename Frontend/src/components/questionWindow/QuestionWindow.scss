@@ -140,8 +140,10 @@
       .sendQuestion {
         margin-top: 1.5rem;
         display: flex;
-        justify-self: center;
-
+        justify-content: center; 
+        margin-left: auto; 
+        margin-right: auto; 
+        padding: 0.5rem 1rem; 
         background: #60a5fa;
         color: #fff;
         border: none;
