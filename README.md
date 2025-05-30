@@ -37,9 +37,9 @@
 > Create and activate a virtual environment before installation
 
 ```bash
-cd backend
+cd Backend
 python -m venv .venv
-source .venv/bin/activate  # or .venv\Scripts\activate on Windows
+source .venv/bin/activate  # or .\.venv\Scripts\activate on Windows
 pip install -r requirements.txt
 ./main.py # or uvicorn main:app --reload
 ```
@@ -47,7 +47,7 @@ pip install -r requirements.txt
 ### Frontend
 
 ```bash
-cd frontend
+cd Frontend
 npm install
 npm run dev  # for development
 # or
