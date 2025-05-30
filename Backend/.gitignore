@@ -175,7 +175,3 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 services/__pycache__/chatgpt.cpython-312.pyc
-**/Database/
-/Database/
-Database/AskFlow.db-shm
-Database/AskFlow.db-wal
