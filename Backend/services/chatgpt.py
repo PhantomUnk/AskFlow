@@ -27,4 +27,4 @@ async def send_request(request: str, model: g4f.Model, retries: int = 3) -> tupl
             print(f"⚠️ Exception - {e}. No more retries.")
             return False, "⚠️ Error: Something went wrong. Please try again later or choose *another AI model!*"
 
-    return True, response + f"\n\n\n *by {model.name}*" #type: ignore
+    return True, str(response) + f"\n\n\n *by {model.name}*" 
