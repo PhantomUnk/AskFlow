@@ -1,11 +1,17 @@
 import { create } from "zustand";
 import axios from "axios";
-import { PostInterface } from "./interface's";
 
 interface PostState {
   posts: PostInterface[];
   fetchPosts: () => void;
   sendQuestion: (username: string, question: string) => void;
+}
+
+interface PostInterface {
+  id: number;
+  username: string;
+  question: string;
+  answer: string;
 }
 
 export const usePostStore = create<PostState>((set, get) => ({
