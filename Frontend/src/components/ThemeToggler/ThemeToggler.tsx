@@ -12,9 +12,16 @@ export default function ThemeToggler() {
 
   return (
     <Popover content={popoverContent}>
-      <button className="theme-toggle" onClick={toggleTheme}>
-        {isDark ? "☀️" : "🌙"}
-      </button>
+      <label htmlFor="switch" className="switch">
+        <input
+          id="switch"
+          type="checkbox"
+          onChange={toggleTheme}
+          checked={!isDark} // контролируем чекбокс состоянием темы: true = тёмная....
+        />
+        <span className="slider"></span>
+        <span className="decoration"></span>
+      </label>
     </Popover>
   );
 }
