@@ -1,6 +1,7 @@
 import "./header.scss";
 import { useTheme } from "../../shared";
 import ThemeToggler from "../ThemeToggler/ThemeToggler";
+import DropdownMenu from "./DropdownMenu/DropdownMenu";
 
 interface HeaderProps {
   setQuestionWindowActive: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,12 +16,9 @@ export default function Header({ setQuestionWindowActive }: HeaderProps) {
         <h1 className={`header-title ${currentTheme}`}>AskFlow</h1>
       </div>
       <div className="header-spacer"></div>
-      <button
-        className={`ask-question ${currentTheme}`}
-        onClick={() => setQuestionWindowActive(true)}
-      >
-        Ask question
-      </button>
+      <DropdownMenu setQuestionWindowActive={setQuestionWindowActive}/>
     </header>
   );
 }
+
+
