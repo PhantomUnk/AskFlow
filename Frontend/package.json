@@ -1,10 +1,13 @@
 {
+  "homepage": "https://PhantomUnk.github.io/AskFlow",
   "name": "frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -13,6 +16,7 @@
     "@tailwindcss/vite": "^4.1.4",
     "antd": "^5.24.8",
     "axios": "^1.9.0",
+    "gh-pages": "^6.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
