@@ -16,9 +16,7 @@ export default function Header({ setQuestionWindowActive }: HeaderProps) {
         <h1 className={`header-title ${currentTheme}`}>AskFlow</h1>
       </div>
       <div className="header-spacer"></div>
-      <DropdownMenu setQuestionWindowActive={setQuestionWindowActive}/>
+      <DropdownMenu setQuestionWindowActive={setQuestionWindowActive} />
     </header>
   );
 }
-
-

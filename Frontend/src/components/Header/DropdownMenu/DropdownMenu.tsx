@@ -26,7 +26,7 @@ export default function DropdownMenu({
   const { currentTheme } = useTheme();
 
   return (
-    <div>
+    <div style={{ marginRight: "5rem" }}>
       <Dropdown menu={{ items }}>
         <button className={`ask-question ${currentTheme}`}>Menu</button>
       </Dropdown>
