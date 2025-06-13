@@ -17,7 +17,9 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem("is-dark");
-    return saved ? JSON.parse(saved) : false;
+    return saved
+      ? JSON.parse(saved)
+      : window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
 
   const toggleTheme = () => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./App.scss";
 import { useTheme } from "./shared";
 import Header from "./components/Header/Header.tsx";
