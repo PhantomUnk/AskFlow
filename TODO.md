@@ -31,6 +31,17 @@ This file contains the list of tasks and features to develop for the AskFlow pro
 
 ---
 
+## 🧩 Small Fixes & Improvements
+
+- ✅ Refactor pydantic files
+- ✅ Backend serve full site without separate frontend run
+- ✅ Consider adding a LICENSE file
+- ✅ Organize folder structure for scalability
+- ✅ Add popups to frontend
+- ✅ Fix incorrect datatype's
+
+---
+
 ## 📝 Task Status Legend
 
 - 🚧 In Progress / Not Completed
