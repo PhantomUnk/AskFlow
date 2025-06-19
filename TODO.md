@@ -39,6 +39,7 @@ This file contains the list of tasks and features to develop for the AskFlow pro
 - ✅ Organize folder structure for scalability
 - ✅ Add popups to frontend
 - ✅ Fix incorrect datatype's
+- ✅ Sync site theme with user's system theme
 
 ---
 
