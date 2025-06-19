@@ -4,7 +4,7 @@ from tortoise_models.post import Post
 from services import chatgpt
 from g4f import models
 
-from pydantic_models.postdata import PostData
+from pydantic_models.post_data import PostData
 
 router = APIRouter()
 
