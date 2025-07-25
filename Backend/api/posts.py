@@ -6,14 +6,14 @@ from g4f import models
 
 from pydantic_models.post_data import PostData
 
-router = APIRouter()
+posts_router = APIRouter()
 
-@router.get("/getPosts")
+@posts_router.get("/getPosts")
 async def get_posts():
     posts = await Post.all()
     return posts
 
-@router.post("/addPost")
+@posts_router.post("/addPost")
 async def add_post(post_data: PostData):
     success, answer = await chatgpt.send_request(post_data.question, 
                                                  models.gpt_4o_mini)
@@ -27,7 +27,7 @@ async def add_post(post_data: PostData):
         return True
     return False
 
-@router.post("/getAnswer")
+@posts_router.post("/getAnswer")
 async def get_answer(prompt: str):
     answer = await chatgpt.send_request(prompt, models.gpt_4o_mini)
     return answer

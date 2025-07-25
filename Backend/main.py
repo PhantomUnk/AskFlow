@@ -6,7 +6,9 @@ from fastapi.responses import HTMLResponse
 
 from contextlib import asynccontextmanager
 
-from api.posts import router
+from api.posts import posts_router
+from api.users import users_router
+
 from database import init_db, close_db
 
 import mimetypes
@@ -22,7 +24,7 @@ app = FastAPI(lifespan=lifespan)
 
 custom_mimetype = mimetypes.add_type("application/javascript", ".js", True) # Necessarily!!!
 
-app.mount("/dist", StaticFiles(directory=r"dist"), name="static")  # Change the name of the directory to yours
+app.mount("/dist", StaticFiles(directory=r"dist"), name="static")  # Change the name of the directory to your's
 templates = Jinja2Templates(directory="dist")
 
 
@@ -30,7 +32,8 @@ templates = Jinja2Templates(directory="dist")
 async def root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request}, media_type="text/html")
 
-app.include_router(router)
+app.include_router(posts_router)
+app.include_router(users_router)
 
 app.add_middleware(
     CORSMiddleware,
