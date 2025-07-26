@@ -6,9 +6,9 @@ This file contains the list of tasks and features to develop for the AskFlow pro
 
 ## 👤 User Authentication
 
-- 🚧 Implement user registration
-- 🔜 Implement user login
-- 🔜 Add session management (tokens, cookies)
+- ✅ Implement user registration
+- ✅ Implement user login
+- 🚧 Add session management (tokens, cookies)
 - 🔜 Handle password recovery
 - 🔜 Add basic form validation (email, password, etc.)
 

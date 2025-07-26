@@ -5,3 +5,4 @@ tortoise==0.1.1
 tortoise-orm==0.20.0
 uvicorn==0.34.2
 bcrypt==4.3.0
+uuid==1.30

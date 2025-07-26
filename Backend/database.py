@@ -4,7 +4,11 @@ TORTOISE_ORM = {
     "connections": {"default": "sqlite://./Database/AskFlow.db"},
     "apps": {
         "models": {
-            "models": ["tortoise_models.post", "tortoise_models.user"],  # Указываем модели
+            "models": [
+                "tortoise_models.post", 
+                "tortoise_models.user",
+                "tortoise_models.session",
+            ],  # Указываем модели
             "default_connection": "default",
         }
     }
