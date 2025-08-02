@@ -22,9 +22,9 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-custom_mimetype = mimetypes.add_type("application/javascript", ".js", True) # Necessarily!!!
+custom_mimetype = mimetypes.add_type("application/javascript", ".js", True) # ! Necessarily!!!
 
-app.mount("/dist", StaticFiles(directory=r"dist"), name="static")  # Change the name of the directory to your's
+app.mount("/dist", StaticFiles(directory=r"dist"), name="static")  # ! Change the name of the directory to your's
 templates = Jinja2Templates(directory="dist")
 
 
@@ -37,7 +37,8 @@ app.include_router(users_router)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    # allow_origins=["*", "http://localhost:5173/"],
+    allow_origins=["http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

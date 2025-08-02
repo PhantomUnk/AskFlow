@@ -1,6 +1,5 @@
 import bcrypt
-from uuid import uuid4
-import asyncio
+from uuid import uuid4, UUID
 
 from fastapi import APIRouter
 from fastapi import Response
@@ -61,12 +60,23 @@ async def login_user(user_data: UserData, response: Response):
     response.set_cookie(
         key="session",
         value=session_id,
-        httponly=True,
-        samesite="lax"
+        httponly=False,
+        samesite="lax",
     )
 
     return True
+
+@users_router.post("/user/logout/{session_id}")
+async def logout_user(session_id: UUID):
+    current_session: Session | None = await Session.get_or_none(
+        session_id=session_id
+    )
+
+    if not current_session:
+        return False
     
+    await current_session.delete()
+
 
 @users_router.get("/user/getUserByID/{id}")
 async def get_user_byID(id: int):

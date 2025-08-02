@@ -2,6 +2,8 @@ import "./DropdownMenu.scss";
 import type { MenuProps } from "antd";
 import { Dropdown } from "antd";
 import { useTheme } from "../../../shared";
+import { useCookies } from "react-cookie";
+import { usePostStore } from "../../../shared/usePostStore";
 
 interface DropdownMenuProps {
   setQuestionWindowActive: React.Dispatch<React.SetStateAction<boolean>>;
@@ -10,6 +12,9 @@ interface DropdownMenuProps {
 export default function DropdownMenu({
   setQuestionWindowActive,
 }: DropdownMenuProps) {
+  const [cookies, , removeCookie] = useCookies(["session"]);
+  const { authenticateToggle } = usePostStore();
+
   const items: MenuProps["items"] = [
     {
       key: "1",
@@ -18,8 +23,12 @@ export default function DropdownMenu({
     },
     {
       key: "2",
-      label: <strong>Logout</strong>,
-      disabled: true,
+      label: (
+        <>
+          {cookies.session ? <strong>Logout</strong> : <strong>Login</strong>}
+        </>
+      ),
+      onClick: () => authenticateToggle(cookies, removeCookie),
     },
   ];
 

@@ -1,10 +1,15 @@
 import { create } from "zustand";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 
 interface PostState {
   posts: PostInterface[];
   fetchPosts: () => void;
   sendQuestion: (username: string, question: string) => void;
+  authenticateToggle: (
+    cookies: { [key: string]: string | undefined },
+    removeCookie: (name: "session", options?: any) => void
+  ) => void;
 }
 
 interface PostInterface {
@@ -19,19 +24,34 @@ export const usePostStore = create<PostState>((set, get) => ({
 
   fetchPosts: async () => {
     await axios
-      .get<PostInterface[]>("http://127.0.0.1:8000/getPosts")
+      .get<PostInterface[]>("/getPosts") // ? настроено в vite.config.ts
       .then((resp) => set({ posts: resp.data }))
       .catch((err) => console.error(err));
   },
 
   sendQuestion: async (username: string, question: string) => {
     await axios
-      .post("http://127.0.0.1:8000/addPost", { username, question })
+      .post("/addPost", { username, question }) // ? настроено в vite.config.ts
       .then(() => {
         get().fetchPosts(); // обращаемся через get
       })
       .catch((error) => {
         console.error("Ошибка при отправке вопроса:", error);
       });
+  },
+
+  authenticateToggle: async (
+    cookies: { [key: string]: string | undefined }, // объект куки, например cookies.session
+    removeCookie: (name: "session", options?: any) => void // функция удаления куки
+  ) => {
+    // ? Оставляем запятую на месте setCookie, т.к useCookies возвращает массив из 3 элементов
+
+    if (cookies.session) {
+      await axios.post(`/user/logout/${cookies.session}`);
+      removeCookie("session");
+      console.log("Хуй");
+
+      window.location.reload();
+    }
   },
 }));

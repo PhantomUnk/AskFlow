@@ -16,7 +16,7 @@ export default function PostPage() {
     <main className="posts">
       {posts.map((post) => (
         <Post key={post.id} {...post} currentTheme={currentTheme} />
-        // {...post} - передаём все свойства объекта post (username, question, answer)
+        // ? {...post} - передаём все свойства объекта post (username, question, answer)
       ))}
     </main>
   );
