@@ -5,6 +5,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 import { usePostStore } from "../../shared/usePostStore";
+import { successfulQuestionNotify } from "../../shared";
 
 interface QuestionWindowProps {
   active: boolean;
@@ -21,26 +22,6 @@ export default function QuestionWindow({
   const [question, setQuestion] = useState<string>("");
 
   const sendQuestion = usePostStore((state) => state.sendQuestion);
-
-  const successfulNotify = () =>
-    toast.success(
-      <div>
-        <div>Question sent successfully!</div>
-        <div style={{ fontSize: "0.9em", opacity: 0.8 }}>
-          Your post will appear soon
-        </div>
-      </div>,
-      {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: currentTheme,
-      }
-    );
 
   return (
     <div className={`questionWindow ${active ? "active" : ""}`}>
@@ -71,7 +52,7 @@ export default function QuestionWindow({
             onClick={() => {
               sendQuestion(username, question);
               setActive(false);
-              successfulNotify();
+              successfulQuestionNotify(currentTheme);
               setQuestion("");
             }}
           >

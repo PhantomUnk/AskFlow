@@ -1,6 +1,9 @@
 import { create } from "zustand";
 import axios from "axios";
-import { useCookies } from "react-cookie";
+
+import { useTheme } from "./useTheme";
+
+import { infoLogoutNotify } from "./toastNotifies";
 
 interface PostState {
   posts: PostInterface[];
@@ -8,7 +11,8 @@ interface PostState {
   sendQuestion: (username: string, question: string) => void;
   authenticateToggle: (
     cookies: { [key: string]: string | undefined },
-    removeCookie: (name: "session", options?: any) => void
+    removeCookie: (name: "session", options?: any) => void,
+    currentTheme: string
   ) => void;
   authenticateUser: (login: string, password: string) => Promise<boolean>;
   loginWindowActive: boolean;
@@ -62,16 +66,15 @@ export const usePostStore = create<PostState>((set, get) => ({
 
   authenticateToggle: async (
     cookies: { [key: string]: string | undefined }, // объект куки, например cookies.session
-    removeCookie: (name: "session", options?: any) => void // функция удаления куки
+    removeCookie: (name: "session", options?: any) => void,
+    currentTheme: string // функция удаления куки
   ) => {
     // ? Оставляем запятую на месте setCookie, т.к useCookies возвращает массив из 3 элементов
 
     if (cookies.session) {
       await axios.post(`/user/logout/${cookies.session}`);
       removeCookie("session");
-      console.log("Хуй");
-
-      window.location.reload();
+      infoLogoutNotify(currentTheme);
       return;
     }
 

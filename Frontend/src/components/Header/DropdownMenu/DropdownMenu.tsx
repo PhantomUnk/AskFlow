@@ -28,7 +28,7 @@ export default function DropdownMenu({
           {cookies.session ? <strong>Logout</strong> : <strong>Login</strong>}
         </>
       ),
-      onClick: () => authenticateToggle(cookies, removeCookie),
+      onClick: () => authenticateToggle(cookies, removeCookie, currentTheme),
     },
   ];
 
