@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import "./App.scss";
-import { useTheme } from "./shared";
+import { useTheme, usePostStore } from "./shared";
 import Header from "./components/Header/Header.tsx";
 import PostPage from "./components/PostPage/PostPage.tsx";
 import QuestionWindow from "./components/QuestionWindow/QuestionWindow.tsx";
+import LoginWindow from "./components/LoginWindow/LoginWindow.tsx";
 import { ToastContainer } from "react-toastify";
 import { ConfigProvider, theme } from "antd";
 
@@ -14,21 +15,23 @@ export default function App() {
   const [questionWindowActive, setQuestionWindowActive] =
     useState<boolean>(false);
 
+  const { loginWindowActive, setLoginWindowActive } = usePostStore();
+
   const { currentTheme, isDark } = useTheme();
 
   const [cookies] = useCookies(["session"]);
 
-  const testSession = async () => {
-    await axios.post("/user/login", {
-      name: "Mark",
-      login: "Mark123",
-      password: "123",
-    });
-  };
+  // const testSession = async () => {
+  //   await axios.post("/user/login", {
+  //     name: "Mark",
+  //     login: "Mark123",
+  //     password: "123",
+  //   });
+  // };
 
-  useEffect(() => {
-    testSession();
-  }, []);
+  // useEffect(() => {
+  //   testSession();
+  // }, []);
 
   return (
     <ConfigProvider
@@ -47,6 +50,12 @@ export default function App() {
         <QuestionWindow
           active={questionWindowActive}
           setActive={setQuestionWindowActive}
+          currentTheme={currentTheme}
+        />
+
+        <LoginWindow
+          active={loginWindowActive}
+          setActive={setLoginWindowActive}
           currentTheme={currentTheme}
         />
       </div>
