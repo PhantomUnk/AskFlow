@@ -78,6 +78,14 @@ async def logout_user(session_id: UUID):
     await current_session.delete()
 
 
+@users_router.get("/user/checkExistSession/{session_id}")
+async def check_exist_session(session_id: UUID):
+    current_session: Session | None = await Session.get_or_none(
+        session_id=session_id
+    )
+
+    return True if current_session else False
+
 @users_router.get("/user/getUserByID/{id}")
 async def get_user_byID(id: int):
     return await User.get_or_none(id=id)

@@ -9,6 +9,10 @@ interface PostState {
   posts: PostInterface[];
   fetchPosts: () => void;
   sendQuestion: (username: string, question: string) => void;
+  fetchValidCookies: (
+    cookies: { [key: string]: string | undefined },
+    removeCookie: (name: "session", options?: any) => void
+  ) => void;
   authenticateToggle: (
     cookies: { [key: string]: string | undefined },
     removeCookie: (name: "session", options?: any) => void,
@@ -50,11 +54,24 @@ export const usePostStore = create<PostState>((set, get) => ({
       });
   },
 
+  fetchValidCookies: async (
+    cookies: { [key: string]: string | undefined },
+    removeCookie: (name: "session", options?: any) => void
+  ) => {
+    return await axios
+      .get(`/user/checkExistSession/${cookies.session}`) // ? настроено в vite.config.ts
+      .then((res) => {
+        console.log(res.data);
+        if (!res.data) removeCookie("session");
+      })
+      .catch((err) => console.error(err));
+  },
+
   authenticateUser: async (
     login: string,
     password: string
   ): Promise<boolean> => {
-    return axios
+    return await axios
       .post("/user/login", { login, password }) // ? настроено в vite.config.ts
       .then((res) => {
         return res.data;

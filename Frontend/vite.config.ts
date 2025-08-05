@@ -29,6 +29,11 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      "/user/checkExistSession": {
+        target: "http://127.0.0.1:8000",
+        changeOrigin: true,
+        secure: false,
+      },
     },
   },
 });

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.scss";
 import { useTheme, usePostStore } from "./shared";
 import Header from "./components/Header/Header.tsx";
@@ -9,29 +9,23 @@ import { ToastContainer } from "react-toastify";
 import { ConfigProvider, theme } from "antd";
 
 import { useCookies } from "react-cookie";
-import axios from "axios";
+
+import { useEffect } from "react";
 
 export default function App() {
   const [questionWindowActive, setQuestionWindowActive] =
     useState<boolean>(false);
 
-  const { loginWindowActive, setLoginWindowActive } = usePostStore();
+  const { loginWindowActive, setLoginWindowActive, fetchValidCookies } =
+    usePostStore();
 
   const { currentTheme, isDark } = useTheme();
 
-  const [cookies] = useCookies(["session"]);
+  const [cookies, , removeCookie] = useCookies(["session"]);
 
-  // const testSession = async () => {
-  //   await axios.post("/user/login", {
-  //     name: "Mark",
-  //     login: "Mark123",
-  //     password: "123",
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   testSession();
-  // }, []);
+  useEffect(() => {
+    fetchValidCookies(cookies, removeCookie);
+  }, []);
 
   return (
     <ConfigProvider
