@@ -9,7 +9,7 @@ interface PostState {
   posts: PostInterface[];
   fetchPosts: () => void;
   sendQuestion: (username: string, question: string) => void;
-  fetchValidCookies: (
+  fetchCookiesOnValid: (
     cookies: { [key: string]: string | undefined },
     removeCookie: (name: "session", options?: any) => void
   ) => void;
@@ -54,7 +54,7 @@ export const usePostStore = create<PostState>((set, get) => ({
       });
   },
 
-  fetchValidCookies: async (
+  fetchCookiesOnValid: async (
     cookies: { [key: string]: string | undefined },
     removeCookie: (name: "session", options?: any) => void
   ) => {

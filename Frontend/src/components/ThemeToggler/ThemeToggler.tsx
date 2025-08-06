@@ -4,15 +4,10 @@ import { Popover } from "antd";
 
 export default function ThemeToggler() {
   const { isDark, toggleTheme } = useTheme();
-  const popoverContent = (
-    <>
-      <strong>Change Theme</strong>
-    </>
-  );
 
   return (
     <div style={{ marginLeft: "5rem" }}>
-      <Popover content={popoverContent}>
+      <Popover content={<strong>Change Theme</strong>}>
         <label htmlFor="switch" className="switch">
           <input
             id="switch"

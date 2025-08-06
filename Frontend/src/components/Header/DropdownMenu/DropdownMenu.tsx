@@ -1,8 +1,8 @@
 import "./DropdownMenu.scss";
 import type { MenuProps } from "antd";
-import { Dropdown } from "antd";
+import { Dropdown, Tooltip, Popover } from "antd";
 import { useTheme } from "../../../shared";
-import { useCookies } from "react-cookie";
+import { Cookies, useCookies } from "react-cookie";
 import { usePostStore } from "../../../shared/usePostStore";
 
 interface DropdownMenuProps {
@@ -14,12 +14,21 @@ export default function DropdownMenu({
 }: DropdownMenuProps) {
   const [cookies, , removeCookie] = useCookies(["session"]);
   const { authenticateToggle } = usePostStore();
+  const { currentTheme } = useTheme();
 
   const items: MenuProps["items"] = [
     {
       key: "1",
       onClick: () => setQuestionWindowActive(true),
-      label: <strong>Ask question</strong>,
+      label: (
+        <Popover
+          content={<strong>You should be logged in to ask a question</strong>}
+          placement="bottom"
+        >
+          <strong>Ask question</strong>
+        </Popover>
+      ),
+      disabled: !cookies.session,
     },
     {
       key: "2",
@@ -31,9 +40,15 @@ export default function DropdownMenu({
       onClick: () => authenticateToggle(cookies, removeCookie, currentTheme),
     },
   ];
-
-  const { currentTheme } = useTheme();
-
+  {
+    /* <Tooltip
+          color={currentTheme === "dark" ? "black" : "blue"}
+          title="You should be logged in to ask a question"
+          placement="bottom"
+        >
+          <strong>Ask question</strong>
+        </Tooltip> */
+  }
   return (
     <div style={{ marginRight: "5rem" }}>
       <Dropdown menu={{ items }}>

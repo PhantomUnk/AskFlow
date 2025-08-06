@@ -16,15 +16,18 @@ export default function App() {
   const [questionWindowActive, setQuestionWindowActive] =
     useState<boolean>(false);
 
-  const { loginWindowActive, setLoginWindowActive, fetchValidCookies } =
-    usePostStore();
+  const {
+    loginWindowActive,
+    setLoginWindowActive,
+    fetchCookiesOnValid: fetchCookiesOnValid,
+  } = usePostStore();
 
   const { currentTheme, isDark } = useTheme();
 
   const [cookies, , removeCookie] = useCookies(["session"]);
 
   useEffect(() => {
-    fetchValidCookies(cookies, removeCookie);
+    fetchCookiesOnValid(cookies, removeCookie);
   }, []);
 
   return (
