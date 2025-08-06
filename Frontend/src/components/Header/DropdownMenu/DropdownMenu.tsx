@@ -1,8 +1,8 @@
 import "./DropdownMenu.scss";
 import type { MenuProps } from "antd";
-import { Dropdown, Tooltip, Popover } from "antd";
+import { Dropdown, Popover } from "antd";
 import { useTheme } from "../../../shared";
-import { Cookies, useCookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 import { usePostStore } from "../../../shared/usePostStore";
 
 interface DropdownMenuProps {
@@ -19,19 +19,6 @@ export default function DropdownMenu({
   const items: MenuProps["items"] = [
     {
       key: "1",
-      onClick: () => setQuestionWindowActive(true),
-      label: (
-        <Popover
-          content={<strong>You should be logged in to ask a question</strong>}
-          placement="bottom"
-        >
-          <strong>Ask question</strong>
-        </Popover>
-      ),
-      disabled: !cookies.session,
-    },
-    {
-      key: "2",
       label: (
         <>
           {cookies.session ? <strong>Logout</strong> : <strong>Login</strong>}
@@ -39,19 +26,28 @@ export default function DropdownMenu({
       ),
       onClick: () => authenticateToggle(cookies, removeCookie, currentTheme),
     },
-  ];
-  {
-    /* <Tooltip
-          color={currentTheme === "dark" ? "black" : "blue"}
-          title="You should be logged in to ask a question"
+    {
+      key: "2",
+      onClick: () => setQuestionWindowActive(true),
+      label: !cookies.session ? (
+        <Popover
+          content={<strong>You should be logged in to ask a question</strong>}
           placement="bottom"
         >
           <strong>Ask question</strong>
-        </Tooltip> */
-  }
+        </Popover>
+      ) : (
+        <strong>Ask question</strong>
+      ),
+      disabled: !cookies.session,
+    },
+  ];
+
   return (
     <div style={{ marginRight: "5rem" }}>
-      <Dropdown menu={{ items }}>
+      <Dropdown
+        menu={cookies.session ? { items: items.slice().reverse() } : { items }}
+      >
         <button className={`ask-question ${currentTheme}`}>Menu</button>
       </Dropdown>
     </div>
