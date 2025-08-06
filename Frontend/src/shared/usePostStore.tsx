@@ -1,14 +1,14 @@
 import { create } from "zustand";
 import axios from "axios";
 
-import { useTheme } from "./useTheme";
-
 import { infoLogoutNotify } from "./toastNotifies";
 
 interface PostState {
   posts: PostInterface[];
   fetchPosts: () => void;
   sendQuestion: (username: string, question: string) => void;
+  isUserLoggedIn: boolean;
+  setIsUserLoggedIn: (value: boolean) => void;
   fetchCookiesOnValid: (
     cookies: { [key: string]: string | undefined },
     removeCookie: (name: "session", options?: any) => void
@@ -53,6 +53,9 @@ export const usePostStore = create<PostState>((set, get) => ({
         console.error("Ошибка при отправке вопроса:", error);
       });
   },
+
+  isUserLoggedIn: false,
+  setIsUserLoggedIn: (value) => set({ isUserLoggedIn: value }),
 
   fetchCookiesOnValid: async (
     cookies: { [key: string]: string | undefined },

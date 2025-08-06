@@ -19,7 +19,9 @@ export default function App() {
   const {
     loginWindowActive,
     setLoginWindowActive,
-    fetchCookiesOnValid: fetchCookiesOnValid,
+    fetchCookiesOnValid,
+    setIsUserLoggedIn,
+    isUserLoggedIn,
   } = usePostStore();
 
   const { currentTheme, isDark } = useTheme();
@@ -28,7 +30,8 @@ export default function App() {
 
   useEffect(() => {
     fetchCookiesOnValid(cookies, removeCookie);
-  }, []);
+    setIsUserLoggedIn(cookies.session);
+  }, [cookies]);
 
   return (
     <ConfigProvider
@@ -42,7 +45,7 @@ export default function App() {
 
         <PostPage />
 
-        {cookies.session ? <h1>{cookies.session}</h1> : <h1>Нету куки</h1>}
+        {isUserLoggedIn ? <h1>{cookies.session}</h1> : <h1>Нету куки</h1>}
 
         <QuestionWindow
           active={questionWindowActive}

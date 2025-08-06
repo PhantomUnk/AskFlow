@@ -13,23 +13,21 @@ export default function DropdownMenu({
   setQuestionWindowActive,
 }: DropdownMenuProps) {
   const [cookies, , removeCookie] = useCookies(["session"]);
-  const { authenticateToggle } = usePostStore();
+  const { authenticateToggle, isUserLoggedIn } = usePostStore();
   const { currentTheme } = useTheme();
 
   const items: MenuProps["items"] = [
     {
       key: "1",
       label: (
-        <>
-          {cookies.session ? <strong>Logout</strong> : <strong>Login</strong>}
-        </>
+        <>{isUserLoggedIn ? <strong>Logout</strong> : <strong>Login</strong>}</>
       ),
       onClick: () => authenticateToggle(cookies, removeCookie, currentTheme),
     },
     {
       key: "2",
       onClick: () => setQuestionWindowActive(true),
-      label: !cookies.session ? (
+      label: !isUserLoggedIn ? (
         <Popover
           content={<strong>You should be logged in to ask a question</strong>}
           placement="bottom"
@@ -39,14 +37,14 @@ export default function DropdownMenu({
       ) : (
         <strong>Ask question</strong>
       ),
-      disabled: !cookies.session,
+      disabled: !isUserLoggedIn,
     },
   ];
 
   return (
     <div style={{ marginRight: "5rem" }}>
       <Dropdown
-        menu={cookies.session ? { items: items.slice().reverse() } : { items }}
+        menu={isUserLoggedIn ? { items: items.slice().reverse() } : { items }}
       >
         <button className={`ask-question ${currentTheme}`}>Menu</button>
       </Dropdown>

@@ -1,3 +1,3 @@
 export * from "./useTheme.tsx";
-export * from "./usePostStore.ts";
+export * from "./usePostStore.tsx";
 export * from "./toastNotifies.tsx";
