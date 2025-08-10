@@ -33,6 +33,18 @@ export const successfulLoginNotify = (currentTheme: string) =>
     theme: currentTheme,
   });
 
+export const successfulRegisterNotify = (currentTheme: string) =>
+  toast.info("You have successfully registered!", {
+    position: "bottom-right",
+    autoClose: 5000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+    theme: currentTheme,
+  });
+
 export const successfulQuestionNotify = (currentTheme: string) =>
   toast.success(
     <div>

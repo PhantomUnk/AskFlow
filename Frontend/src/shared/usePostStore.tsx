@@ -18,12 +18,21 @@ interface PostState {
     currentTheme: string
   ) => void;
   authenticateUser: (
+    // ? login user
+    login: string,
+    password: string,
+    currentTheme: string
+  ) => Promise<boolean>;
+  registerUser: (
+    username: string,
     login: string,
     password: string,
     currentTheme: string
   ) => Promise<boolean>;
   loginWindowActive: boolean;
   setLoginWindowActive: (active: boolean) => void;
+  registerWindowActive: boolean;
+  setRegisterWindowActive: (active: boolean) => void;
 }
 
 interface PostInterface {
@@ -36,8 +45,12 @@ interface PostInterface {
 export const usePostStore = create<PostState>((set, get) => ({
   posts: [],
 
-  loginWindowActive: false,
+  registerWindowActive: false,
   setLoginWindowActive: (active: boolean) => set({ loginWindowActive: active }),
+
+  loginWindowActive: false,
+  setRegisterWindowActive: (active: boolean) =>
+    set({ registerWindowActive: active }),
 
   fetchPosts: async () => {
     await axios
@@ -91,6 +104,28 @@ export const usePostStore = create<PostState>((set, get) => ({
       }) // ? настроено в vite.config.ts
       .then((res) => {
         console.log(res.data.detail);
+        return res.data;
+      })
+      .catch((res) => {
+        const message = res.response.data.detail;
+        detailErrorNotify(currentTheme, message);
+      });
+  },
+
+  registerUser: async (
+    username: string,
+    login: string,
+    password: string,
+    currentTheme: string
+  ): Promise<boolean> => {
+    return await axios
+      .post("/user/register", {
+        name: username,
+        login: login,
+        password: password,
+      }) // ? настроено в vite.config.ts
+      .then((res) => {
+        console.log(res.data);
         return res.data;
       })
       .catch((res) => {

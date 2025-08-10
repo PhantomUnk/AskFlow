@@ -1,46 +1,44 @@
 import { IoMdCloseCircle } from "react-icons/io";
 import { Input } from "antd";
-import "./LoginWindow.scss";
+import "./RegisterWindow.scss";
 import { useState } from "react";
-
-import { Typography } from "antd";
+// import { toast } from "react-toastify";
 
 import { usePostStore } from "../../shared/usePostStore";
-import { successfulLoginNotify } from "../../shared";
+import { successfulRegisterNotify, detailErrorNotify } from "../../shared";
 
-interface LoginWindowProps {
+interface RegisterWindowProps {
   active: boolean;
   setActive: Function;
-  setRegisterWindowActive: Function;
   currentTheme: string;
 }
 
-export default function LoginWindow({
+export default function RegisterWindow({
   active,
   setActive,
-  setRegisterWindowActive,
   currentTheme,
-}: LoginWindowProps) {
+}: RegisterWindowProps) {
   const [login, setLogin] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const { Text, Link } = Typography; // * Typography from antd
-
-  const authenticateUser = usePostStore((state) => state.authenticateUser);
+  const registerUser = usePostStore((state) => state.registerUser);
 
   const handleSend = async () => {
-    if (!login.trim() || !password.trim()) return; // * check for empty fields
+    if (!login.trim() || !password.trim() || !username.trim())
+      detailErrorNotify(currentTheme, "Fields cannot be empty"); // * check for empty fields
 
-    const userAuthenticate = await authenticateUser(
+    const userRegistered = await registerUser(
+      username,
       login,
       password,
       currentTheme
     );
 
-    if (!userAuthenticate) {
+    if (!userRegistered) {
       return;
     }
-    successfulLoginNotify(currentTheme);
+    successfulRegisterNotify(currentTheme);
     setActive(false);
   };
 
@@ -54,14 +52,21 @@ export default function LoginWindow({
   };
 
   return (
-    <div className={`loginWindow ${active ? "active" : ""}`}>
+    <div className={`registerWindow ${active ? "active" : ""}`}>
       <div className={`content ${currentTheme}`}>
-        <h2 className={`title ${currentTheme}`}>Login</h2>
+        <h2 className={`title ${currentTheme}`}>Register</h2>
         <IoMdCloseCircle
           className="closeButton"
           onClick={() => setActive(false)}
         />
         <div className="inputFields">
+          <Input.TextArea
+            className={`inputField ${currentTheme}`}
+            size="large"
+            placeholder="Username"
+            autoSize={{ maxRows: 2 }}
+            onChange={(e) => setUsername(e.target.value)}
+          />
           <Input.TextArea
             className={`inputField ${currentTheme}`}
             size="large"
@@ -85,19 +90,8 @@ export default function LoginWindow({
               await handleSend();
             }}
           >
-            Login
+            Register
           </button>
-          <div style={{ marginTop: 12, textAlign: "center" }}>
-            <Text>Don't have an account? </Text>
-            <Link
-              onClick={() => {
-                setActive(false);
-                setRegisterWindowActive(true);
-              }}
-            >
-              Create now
-            </Link>
-          </div>
         </div>
       </div>
     </div>

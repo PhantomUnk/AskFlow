@@ -24,6 +24,11 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      "/user/register": {
+        target: "http://127.0.0.1:8000",
+        changeOrigin: true,
+        secure: false,
+      },
       "/user/logout": {
         target: "http://127.0.0.1:8000",
         changeOrigin: true,

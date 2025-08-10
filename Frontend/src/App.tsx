@@ -5,6 +5,7 @@ import Header from "./components/Header/Header.tsx";
 import PostPage from "./components/PostPage/PostPage.tsx";
 import QuestionWindow from "./components/QuestionWindow/QuestionWindow.tsx";
 import LoginWindow from "./components/LoginWindow/LoginWindow.tsx";
+import RegisterWindow from "./components/RegisterWindow/RegisterWindow.tsx";
 import { ToastContainer } from "react-toastify";
 import { ConfigProvider, theme } from "antd";
 
@@ -19,7 +20,12 @@ export default function App() {
   const {
     loginWindowActive,
     setLoginWindowActive,
+
+    registerWindowActive,
+    setRegisterWindowActive,
+
     fetchCookiesOnValid,
+
     setIsUserLoggedIn,
     isUserLoggedIn,
   } = usePostStore();
@@ -53,9 +59,16 @@ export default function App() {
           currentTheme={currentTheme}
         />
 
+        <RegisterWindow
+          active={registerWindowActive}
+          setActive={setRegisterWindowActive}
+          currentTheme={currentTheme}
+        />
+
         <LoginWindow
           active={loginWindowActive}
           setActive={setLoginWindowActive}
+          setRegisterWindowActive={setRegisterWindowActive}
           currentTheme={currentTheme}
         />
       </div>
