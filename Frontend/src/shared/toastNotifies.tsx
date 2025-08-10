@@ -1,5 +1,4 @@
 import { toast } from "react-toastify";
-import { useTheme } from "./useTheme";
 
 export const failedLoginNotify = (currentTheme: string) =>
   toast.error(
@@ -55,16 +54,37 @@ export const successfulQuestionNotify = (currentTheme: string) =>
   );
 
 export const infoLogoutNotify = (currentTheme: string) =>
-  toast.info(
-    "You have successfully logout!",
-    {
-      position: "bottom-right",
-      autoClose: 3000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: currentTheme,
-    }
-  );
+  toast.info("You have successfully logout!", {
+    position: "bottom-right",
+    autoClose: 3000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+    theme: currentTheme,
+  });
+
+export const detailInfoNotify = (currentTheme: string, message: string) =>
+  toast.info(message, {
+    position: "bottom-right",
+    autoClose: 3000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+    theme: currentTheme,
+  });
+
+export const detailErrorNotify = (currentTheme: string, message: string) =>
+  toast.error(message, {
+    position: "bottom-right",
+    autoClose: 3000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+    theme: currentTheme,
+  });

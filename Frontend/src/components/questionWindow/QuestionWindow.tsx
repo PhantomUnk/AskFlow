@@ -2,7 +2,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 import { Input } from "antd";
 import "./QuestionWindow.scss";
 import { useState } from "react";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
 import { usePostStore } from "../../shared/usePostStore";
 import { successfulQuestionNotify } from "../../shared";

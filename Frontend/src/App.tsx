@@ -29,7 +29,7 @@ export default function App() {
   const [cookies, , removeCookie] = useCookies(["session"]);
 
   useEffect(() => {
-    fetchCookiesOnValid(cookies, removeCookie);
+    fetchCookiesOnValid(removeCookie);
     setIsUserLoggedIn(cookies.session);
   }, [cookies]);
 

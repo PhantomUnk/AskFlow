@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
 
-import { infoLogoutNotify } from "./toastNotifies";
+import { infoLogoutNotify, detailErrorNotify } from "./toastNotifies";
 
 interface PostState {
   posts: PostInterface[];
@@ -10,7 +10,6 @@ interface PostState {
   isUserLoggedIn: boolean;
   setIsUserLoggedIn: (value: boolean) => void;
   fetchCookiesOnValid: (
-    cookies: { [key: string]: string | undefined },
     removeCookie: (name: "session", options?: any) => void
   ) => void;
   authenticateToggle: (
@@ -18,7 +17,11 @@ interface PostState {
     removeCookie: (name: "session", options?: any) => void,
     currentTheme: string
   ) => void;
-  authenticateUser: (login: string, password: string) => Promise<boolean>;
+  authenticateUser: (
+    login: string,
+    password: string,
+    currentTheme: string
+  ) => Promise<boolean>;
   loginWindowActive: boolean;
   setLoginWindowActive: (active: boolean) => void;
 }
@@ -45,7 +48,10 @@ export const usePostStore = create<PostState>((set, get) => ({
 
   sendQuestion: async (username: string, question: string) => {
     await axios
-      .post("/addPost", { username, question }) // ? настроено в vite.config.ts
+      .post("/addPost", {
+        username,
+        question,
+      }) // ? настроено в vite.config.ts
       .then(() => {
         get().fetchPosts(); // обращаемся через get
       })
@@ -58,29 +64,38 @@ export const usePostStore = create<PostState>((set, get) => ({
   setIsUserLoggedIn: (value) => set({ isUserLoggedIn: value }),
 
   fetchCookiesOnValid: async (
-    cookies: { [key: string]: string | undefined },
     removeCookie: (name: "session", options?: any) => void
   ) => {
     return await axios
-      .get(`/user/checkExistSession/${cookies.session}`) // ? настроено в vite.config.ts
+      .get(`/user/checkExistSession`) // ? настроено в vite.config.ts
       .then((res) => {
         console.log(res.data);
-        if (!res.data) removeCookie("session");
+        if (!res.data) {
+          removeCookie("session");
+        }
       })
-      .catch((err) => console.error(err));
+      .catch(() => {
+        removeCookie("session");
+      });
   },
 
   authenticateUser: async (
     login: string,
-    password: string
+    password: string,
+    currentTheme: string
   ): Promise<boolean> => {
     return await axios
-      .post("/user/login", { login, password }) // ? настроено в vite.config.ts
+      .post("/user/login", {
+        login,
+        password,
+      }) // ? настроено в vite.config.ts
       .then((res) => {
+        console.log(res.data.detail);
         return res.data;
       })
-      .catch(() => {
-        return false;
+      .catch((res) => {
+        const message = res.response.data.detail;
+        detailErrorNotify(currentTheme, message);
       });
   },
 
@@ -92,7 +107,7 @@ export const usePostStore = create<PostState>((set, get) => ({
     // ? Оставляем запятую на месте setCookie, т.к useCookies возвращает массив из 3 элементов
 
     if (cookies.session) {
-      await axios.post(`/user/logout/${cookies.session}`);
+      await axios.post(`/user/logout`);
       removeCookie("session");
       infoLogoutNotify(currentTheme);
       return;

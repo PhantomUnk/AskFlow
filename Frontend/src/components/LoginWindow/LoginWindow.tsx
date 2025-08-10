@@ -2,10 +2,10 @@ import { IoMdCloseCircle } from "react-icons/io";
 import { Input } from "antd";
 import "./LoginWindow.scss";
 import { useState } from "react";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
 import { usePostStore } from "../../shared/usePostStore";
-import { failedLoginNotify, successfulLoginNotify } from "../../shared";
+import { successfulLoginNotify } from "../../shared";
 
 interface LoginWindowProps {
   active: boolean;
@@ -53,10 +53,13 @@ export default function LoginWindow({
               // ? e - event object
               e.preventDefault(); // ? default action of browser will not be executed
 
-              const userAuthenticate = await authenticateUser(login, password);
+              const userAuthenticate = await authenticateUser(
+                login,
+                password,
+                currentTheme
+              );
 
               if (!userAuthenticate) {
-                failedLoginNotify(currentTheme);
                 // setActive(false);
                 return;
               }
