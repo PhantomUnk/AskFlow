@@ -23,6 +23,31 @@ export default function LoginWindow({
 
   const authenticateUser = usePostStore((state) => state.authenticateUser);
 
+  const handleSend = async () => {
+    if (!login.trim() || !password.trim()) return; // проверка на пустые поля
+
+    const userAuthenticate = await authenticateUser(
+      login,
+      password,
+      currentTheme
+    );
+
+    if (!userAuthenticate) {
+      return;
+    }
+    successfulLoginNotify(currentTheme);
+    setActive(false);
+  };
+
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    if (e.ctrlKey && e.key === "Enter") {
+      e.preventDefault();
+      handleSend();
+    }
+  };
+
   return (
     <div className={`loginWindow ${active ? "active" : ""}`}>
       <div className={`content ${currentTheme}`}>
@@ -46,25 +71,13 @@ export default function LoginWindow({
             // autoSize={{ minRows: 1, maxRows: 7 }}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
           <button
             className={`loginButton ${currentTheme}`}
             onClick={async (e) => {
-              // ? e - event object
-              e.preventDefault(); // ? default action of browser will not be executed
-
-              const userAuthenticate = await authenticateUser(
-                login,
-                password,
-                currentTheme
-              );
-
-              if (!userAuthenticate) {
-                // setActive(false);
-                return;
-              }
-              successfulLoginNotify(currentTheme);
-              setActive(false);
+              e.preventDefault();
+              await handleSend();
             }}
           >
             Login

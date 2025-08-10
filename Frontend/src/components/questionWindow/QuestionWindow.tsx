@@ -23,6 +23,21 @@ export default function QuestionWindow({
 
   const sendQuestion = usePostStore((state) => state.sendQuestion);
 
+  const handleSend = () => {
+    if (!username.trim() || !question.trim()) return; // опционально — проверка на пустые поля
+    sendQuestion(username, question);
+    setActive(false);
+    successfulQuestionNotify(currentTheme);
+    setQuestion("");
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.ctrlKey && e.key === "Enter") {
+      e.preventDefault(); // чтобы избежать добавления новой строки
+      handleSend();
+    }
+  };
+
   return (
     <div className={`questionWindow ${active ? "active" : ""}`}>
       <div className={`content ${currentTheme}`}>
@@ -46,15 +61,11 @@ export default function QuestionWindow({
             autoSize={{ minRows: 1, maxRows: 7 }}
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
           <button
             className={`sendQuestion ${currentTheme}`}
-            onClick={() => {
-              sendQuestion(username, question);
-              setActive(false);
-              successfulQuestionNotify(currentTheme);
-              setQuestion("");
-            }}
+            onClick={handleSend}
           >
             Send question
           </button>
