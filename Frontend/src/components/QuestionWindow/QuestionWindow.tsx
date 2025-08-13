@@ -2,10 +2,8 @@ import { IoMdCloseCircle } from "react-icons/io";
 import { Input } from "antd";
 import "./QuestionWindow.scss";
 import { useState } from "react";
-// import { toast } from "react-toastify";
 
 import { usePostStore } from "../../shared/usePostStore";
-import { successfulQuestionNotify } from "../../shared";
 
 interface QuestionWindowProps {
   active: boolean;
@@ -24,16 +22,15 @@ export default function QuestionWindow({
   const sendQuestion = usePostStore((state) => state.sendQuestion);
 
   const handleSend = () => {
-    if (!username.trim() || !question.trim()) return; // опционально — проверка на пустые поля
-    sendQuestion(username, question);
+    if (!username.trim() || !question.trim()) return; // ? optional: check for empty fields
+    sendQuestion(username, question, currentTheme);
     setActive(false);
-    successfulQuestionNotify(currentTheme);
     setQuestion("");
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.ctrlKey && e.key === "Enter") {
-      e.preventDefault(); // чтобы избежать добавления новой строки
+      e.preventDefault(); // ? to keep from inserting a new line
       handleSend();
     }
   };

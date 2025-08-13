@@ -1,12 +1,20 @@
 import { create } from "zustand";
 import axios from "axios";
 
-import { infoLogoutNotify, detailErrorNotify } from "./toastNotifies";
+import {
+  infoLogoutNotify,
+  detailErrorNotify,
+  successfulQuestionNotify,
+} from "./toastNotifies";
 
 interface PostState {
   posts: PostInterface[];
   fetchPosts: () => void;
-  sendQuestion: (username: string, question: string) => void;
+  sendQuestion: (
+    username: string,
+    question: string,
+    currentTheme: string
+  ) => void;
   isUserLoggedIn: boolean;
   setIsUserLoggedIn: (value: boolean) => void;
   fetchCookiesOnValid: (
@@ -59,17 +67,23 @@ export const usePostStore = create<PostState>((set, get) => ({
       .catch((err) => console.error(err));
   },
 
-  sendQuestion: async (username: string, question: string) => {
+  sendQuestion: async (
+    username: string,
+    question: string,
+    currentTheme: string
+  ) => {
     await axios
       .post("/addPost", {
         username,
         question,
       }) // ? настроено в vite.config.ts
       .then(() => {
+        successfulQuestionNotify(currentTheme);
         get().fetchPosts(); // обращаемся через get
       })
-      .catch((error) => {
-        console.error("Ошибка при отправке вопроса:", error);
+      .catch((err) => {
+        const message = err.response.data.detail;
+        detailErrorNotify(currentTheme, message);
       });
   },
 
@@ -106,8 +120,8 @@ export const usePostStore = create<PostState>((set, get) => ({
         console.log(res.data.detail);
         return res.data;
       })
-      .catch((res) => {
-        const message = res.response.data.detail;
+      .catch((err) => {
+        const message = err.response.data.detail;
         detailErrorNotify(currentTheme, message);
       });
   },
@@ -128,8 +142,8 @@ export const usePostStore = create<PostState>((set, get) => ({
         console.log(res.data);
         return res.data;
       })
-      .catch((res) => {
-        const message = res.response.data.detail;
+      .catch((err) => {
+        const message = err.response.data.detail;
         detailErrorNotify(currentTheme, message);
       });
   },
